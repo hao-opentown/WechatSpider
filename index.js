@@ -4,11 +4,24 @@ var sampleFile = '/Users/wangzhihao/opentown/repos/tmp/wechatSpider/WechatSpider
 
 var wechat = WeChatService.getWeChat();
 
-wechat
-    .waitConsole()
-    .selectRandomMember()
-    .then(function(){
-      console.log(this);
+function loop(){
+  wechat
+    .waitConsole().then(function(input){
+      if(input != 'exit'){
+        var result = this.search(input);
+        if(result == false){
+          console.log('no matched.')
+        }else{
+          result.click();
+        }
+        loop();
+      }
     })
-    .sendMessage('hi, how is today?')
-    .sendFile(sampleFile);
+}
+loop();
+// wechat
+//     .waitConsole()
+    //.search()
+    // .selectRandomMember()
+    // .sendMessage('hi, how is today?')
+    // .sendFile(sampleFile);

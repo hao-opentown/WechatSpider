@@ -2,7 +2,7 @@ var wechat = require('../lib/WeChatService').getWeChat();
 
 function loop() {
     wechat
-        .waitConsole().then(function(input) {
+        .waitConsole('please input something to continue.').then(function(input) {
             if (input != 'exit') {
                 this.search(input)
                     .then(function(isExisting) {

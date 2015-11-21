@@ -5,8 +5,6 @@ var async = require('async');
 var _ = require('underscore');
 var mongoose = require('mongoose');
 
-var currentUser = 'haozi';
-
 var Contact = mongoose.model('Contact', {
     contact: String,
     image: String,
@@ -20,7 +18,7 @@ mongoose.connect('mongodb://localhost/wechat', function(err) {
     Contact.find(function(err, contacts) {
         if (err) throw err;
         //console.log(contacts);
-        wechat.waitConsole('please input something to continue.').then(function() {
+        wechat.waitConsole('please input the current user name....').then(function(currentUser) {
 
             //execute it in sequence.
             async.eachSeries(contacts, function(contact, callback) {
@@ -42,6 +40,7 @@ mongoose.connect('mongodb://localhost/wechat', function(err) {
                                 });
                             }
                         } else {
+                            console.log(contact.contact + ' is a stranger.');
                             callback();
                         }
                     });

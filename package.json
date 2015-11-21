@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/hao-opentown/WechatSpider/issues"
   },
-  "homepage": "https://github.com/hao-opentown/WechatSpider"
+  "homepage": "https://github.com/hao-opentown/WechatSpider",
+  "dependencies": {
+    "async": "^1.5.0",
+    "mongoose": "^4.2.7",
+    "underscore": "^1.8.3"
+  }
 }

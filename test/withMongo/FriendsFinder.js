@@ -24,16 +24,23 @@ mongoose.connect('mongodb://localhost/wechat', function(err) {
 
             //execute it in sequence.
             async.eachSeries(contacts, function(contact, callback) {
-                console.log(contact.contact);
+                //console.log();
                 wechat.search(contact.contact)
                     .then(function(isExisting) {
-                        console.log(isExisting);
                         if (isExisting) {
-                            contact.friend = currentUser;
-                            contact.save(function(err) {
-                                console.log(err || 'save successfully.');
+                            console.log(contact.contact + ' is a friend of ' + currentUser);
+                            if (contact.friend) {
+                                if (contact.friend != currentUser) {
+                                    console.log(contact.contact + ' is the friend of both' + contact.friend + ' and ' + currentUser + '. skip...');
+                                }
                                 callback();
-                            });
+                            } else {
+                                contact.friend = currentUser;
+                                contact.save(function(err) {
+                                    console.log(err || 'save the friendship in db.');
+                                    callback();
+                                });
+                            }
                         } else {
                             callback();
                         }
